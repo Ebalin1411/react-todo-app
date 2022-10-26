@@ -1,8 +1,11 @@
+
 import React, { useEffect, useState } from 'react';
 import TodoItem, { Todo } from './component/todo-item';
 import axios from 'axios';
 import { createTodo } from './api.service';
+import { url } from 'inspector';
 const APIToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsc2NtY29zd2FqcmtkYXpla2xjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEyMTMsImV4cCI6MTk4MTkxNzIxM30.c0E1wT_vPN0xFdYItcqfcbxZzQG-kLgpLt4R8rKZUiU'
+const baseUrl='https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos'
 function App() {
         //Creating new state for list item
     const [todoText,setTodoText]=useState<string>('');  //state Declaration
@@ -11,7 +14,7 @@ function App() {
 
     useEffect(()=>{
       //Fetch data from server on Form Load
-      axios.get('https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos',{
+      axios.get(baseUrl,{
         headers:{
           'apikey':APIToken,
           'Authorization':`Bearer ${APIToken} `
@@ -62,26 +65,46 @@ function App() {
 
 //===input Box Functions starts here===//
 
-    const onDeleteTodo=(index:number)=> {    
+
+   //Delete from Table===================
+   
+    const onDeleteTodo= async (index:number)=> { 
+     
+        console.log(index)
+        console.log(todoList[index])
+
+        const request = await  axios.delete(`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos?id=eq.${index}` ,{
+        headers:{
+        'apikey':APIToken,
+        'Authorization':`Bearer ${APIToken} `
       
-      console.log(index)
-      const  arrayCopy =[...todoList]
-      arrayCopy.splice(index,1)
-      setTodoList(arrayCopy)
+      }
+      }).then(resp=>{ 
+
+          setTodoList(resp.data)          
+          console.log('resp',resp.data);
+
+      })
+
+//=================
+          const  arrayCopy =[...todoList]
+          arrayCopy.splice(index,1)
+          setTodoList(arrayCopy) 
+          console.log(arrayCopy)
 
     }
 
-    const onToDoStatusChange=(index:number)=>{
+      const onToDoStatusChange=(index:number)=>{
       const arrayCopy =[...todoList]
       arrayCopy[index].isDone = !arrayCopy[index].isDone;
       setTodoList(arrayCopy);                  
-    }
+        }
 
     const onToDoTextChange =(index:number ,text:string)=>{
       const arrayCopy =[...todoList]
       arrayCopy[index].name =text;
       setTodoList(arrayCopy);  
-    }
+        }
 
    
 
