@@ -1,5 +1,6 @@
 import {Todo}from './component/todo-item'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -15,6 +16,8 @@ export const createTodo =async(todo:Todo)=>{
           }
 
     });
+   console.log('Todo data',todo)
    console.log('resp',rsp.data);
+ 
    return rsp.status === 201 ? true : false ; 
 }
