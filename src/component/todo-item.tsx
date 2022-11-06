@@ -37,8 +37,8 @@ const TodoItem = (props:Props)=>{
    const onTextKeyPress =(e:any)=> {
     if(e.keyCode === 13){
         alert(e.target.value) //Update
-
         setIsTextEditable(false);
+        
     return;
 
     
