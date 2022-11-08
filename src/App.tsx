@@ -130,7 +130,7 @@ function App() {
 
       return (
         <>
-      <div className="container flex flex-col item-center gap-5 m-20  bg-slate-400 h-screen w-auto ">
+      <div className="container flex flex-col item-center md:gap-5 md:m-20  bg-slate-400  ">
         <div className='flex flex-col m-10  '>
             <h1 className='text-4xl font-bold text-center m-8'>My ToDo List</h1>
             <input 
