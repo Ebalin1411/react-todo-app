@@ -3,6 +3,8 @@ import { clsx } from 'clsx'
 import {AiFillDelete} from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify';
 
+import axios from 'axios';
+const APIToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsc2NtY29zd2FqcmtkYXpla2xjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEyMTMsImV4cCI6MTk4MTkxNzIxM30.c0E1wT_vPN0xFdYItcqfcbxZzQG-kLgpLt4R8rKZUiU'
 
 interface Props{
     todo:Todo       
@@ -26,7 +28,7 @@ const TodoItem = (props:Props)=>{
 
    const   handleTextChange =(e:any)=> {
         if(e.keyCode === 13){
-           // alert(e.target.value)
+            alert('inside HandleTextChange'+ e.target.value + props.todo.id)
             setIsTextEditable(false);
            
         return;
@@ -34,9 +36,22 @@ const TodoItem = (props:Props)=>{
         props.onTextChange(e.target.value)
        
    }
-   const onTextKeyPress =(e:any)=> {
+   const onTextKeyPress =async(e:any)=> {
     if(e.keyCode === 13){
-        alert(e.target.value) //Update
+        alert('insideOnTextKeyPress'+ e.target.value) //Update
+        alert('update id'+ props.todo.id)
+        const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos/${props.todo.id}`;
+        const rsp= await axios.patch(apiUrl,{isDone:true},{
+            headers:{
+                apikey :APIToken,
+                Authorization: `Bearer ${APIToken}`
+              }
+    
+        });
+       
+
+
+     
         setIsTextEditable(false);
         
     return;
