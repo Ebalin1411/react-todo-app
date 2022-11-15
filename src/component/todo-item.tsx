@@ -27,41 +27,38 @@ const TodoItem = (props:Props)=>{
    const [isTextEditable, setIsTextEditable] = useState<boolean>(false);
 
    const   handleTextChange =(e:any)=> {
-    props.onTextChange(e.target.value)
-    alert('inside HandleTextChange'+ e.target.value + props.todo.id)
-        // if(e.keyCode === 13){
-           
-        //     setIsTextEditable(false);
-           
-        // return;
-        // }
-       
-       
+        props.onTextChange(e.target.value)
+        // alert('inside HandleTextChange'+ e.target.value + props.todo.id)
    }
 
 
    const onTextKeyPress =async(e:any)=> {
-    if(e.keyCode === 13){
-        setIsTextEditable(false);
-        alert('insideOnTextKeyPress'+ e.target.value) //Update
-        alert('update id'+ props.todo.id)
-        
 
-        // const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos/${props.todo.id}`;
-        
-        // const rsp= await axios.patch(apiUrl,{isDone:true},{
-        //     headers:{
-        //         apikey :APIToken,
-        //         Authorization: `Bearer ${APIToken}`
-        //       }
-    
-        // }); 
-        
-    return;
+            if(e.keyCode === 13){
+                setIsTextEditable(false);
+                alert('Call update')
+                alert('Todo Name(value of inputBox)  '+ e.target.value) //Update
+                alert('update id  '+ props.todo.id)
+                
+                try{
 
-    
-     }
-    };
+                    const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos?id=eq.${props.todo.id}`;
+                
+                    const rsp= await axios.patch(apiUrl,{name:e.target.value},{
+                     headers:{
+                        apikey :APIToken,
+                        Authorization: `Bearer ${APIToken}`
+                      }
+            
+                 }); 
+
+
+                }catch(error){
+
+                   
+                }
+            }
+        };
 
 
     return(            //html elements

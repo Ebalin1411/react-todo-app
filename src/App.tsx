@@ -5,7 +5,6 @@ import axios from 'axios';
 import supabase from './config/supabaseClient';
 import { createTodo } from './api.service';
 import { url } from 'inspector';
-//toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const APIToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsc2NtY29zd2FqcmtkYXpla2xjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEyMTMsImV4cCI6MTk4MTkxNzIxM30.c0E1wT_vPN0xFdYItcqfcbxZzQG-kLgpLt4R8rKZUiU'
@@ -21,29 +20,30 @@ function App() {
         //State for List
     const [todoList,setTodoList]=useState<Todo[]>([]);
    
+  try{
 
     useEffect(()=>{
-      //Fetch data from server on Form Load
-
-      
-      baseUrl='https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos'
-      axios.get(baseUrl,{
-        headers:{
-          'apikey':APIToken,
-          'Authorization':`Bearer ${APIToken} `
-        }
-      }).then(resp=>{        
-        setTodoList(resp.data)
-        console.log('resp',resp.data);
-        
-      })
-      return()=>{
-        console.log('Call this when component unloads')
-       
-      }
-
-
-    },[])
+      //Fetch data from server on Form Load      
+        baseUrl='https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos'
+          axios.get(baseUrl,{
+            headers:{
+              'apikey':APIToken,
+              'Authorization':`Bearer ${APIToken} `
+            }
+          }).then(resp=>{  
+            if(resp.data.length === 0){            
+              notify('Nothing To Do.. Add Todo items')
+            }  
+            setTodoList(resp.data)           
+          })
+          return()=>{
+            console.log('Call this when component unloads')          
+          }          
+      },[])    
+    }catch(error){
+      console.log(error)        
+      notify('Sorry! Couldnt Fetch Your Records. Please Check Your Connection')
+  };
  
 
 //===input Box Functions starts here===//
@@ -68,8 +68,7 @@ function App() {
                         })
                       ); 
                      
-                  }else {
-                    console.log('unable to add ');                   
+                  }else {                                     
                     notify('unable to add')
                   }
           
@@ -135,20 +134,21 @@ function App() {
   }
 
 
-
-
   const onToDoTextChange =(index:number ,text:string)=>{
-      const arrayCopy =[...todoList]
-      arrayCopy[index].name =text;
-      setTodoList(arrayCopy);  
+   
+       const arrayCopy =[...todoList]
+       arrayCopy[index].name =text;
+       setTodoList(arrayCopy);  
+
+
     }
 
    
 
  return (
     <>
-      <div className="container flex flex-col item-center md:gap-5 mx-auto  md:m-20 m-10   bg-slate-400  ">
-        <div className='flex flex-col m-10  '>
+      <div className="container flex flex-col item-center md:gap-5 mx-auto m-10   bg-slate-400  ">
+        <div className='flex flex-col m-10  md:m-8 '>
             <h1 className='text-4xl font-bold text-center m-8'>My ToDo List</h1>
             <input 
                 type="text"
