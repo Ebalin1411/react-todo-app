@@ -35,10 +35,7 @@ const TodoItem = (props:Props)=>{
    const onTextKeyPress =async(e:any)=> {
 
             if(e.keyCode === 13){
-                setIsTextEditable(false);
-                alert('Call update')
-                alert('Todo Name(value of inputBox)  '+ e.target.value) //Update
-                alert('update id  '+ props.todo.id)
+                setIsTextEditable(false);                
                 
                 try{
 
@@ -52,9 +49,10 @@ const TodoItem = (props:Props)=>{
             
                  }); 
 
-
+                 notify('Changes Noted.')
                 }catch(error){
-
+                    console.log(error)        
+                    notify('Sorry! Couldnt make Changes. Please Check Your Connection')
                    
                 }
             }
@@ -93,3 +91,7 @@ const TodoItem = (props:Props)=>{
 } 
 
 export default TodoItem;
+
+function notify(arg0: string) {
+    throw new Error('Function not implemented.');
+}
