@@ -45,14 +45,17 @@ const TodoItem = (props:Props)=>{
         setIsTextEditable(false);
         alert('insideOnTextKeyPress'+ e.target.value) //Update
         alert('update id'+ props.todo.id)
-        const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos/${props.todo.id}`;
-        const rsp= await axios.patch(apiUrl,{isDone:true},{
-            headers:{
-                apikey :APIToken,
-                Authorization: `Bearer ${APIToken}`
-              }
+        
+
+        // const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos/${props.todo.id}`;
+        
+        // const rsp= await axios.patch(apiUrl,{isDone:true},{
+        //     headers:{
+        //         apikey :APIToken,
+        //         Authorization: `Bearer ${APIToken}`
+        //       }
     
-        }); 
+        // }); 
         
     return;
 

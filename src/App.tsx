@@ -85,73 +85,68 @@ function App() {
    //Delete from Table===================
    
     const onDeleteTodo= async (index:number)=> {     
-        console.log(index)        
-        const selectedtodoItem = todoList[index]
-        console.log('Show selected Items',selectedtodoItem.id) 
-        baseUrl=`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos?id=eq.${selectedtodoItem.id}`;
-        const request = await  axios.delete(baseUrl,{
-        headers:{
-        'apikey':APIToken,
-        'Authorization':`Bearer ${APIToken}`       
+        try{         
+            const selectedtodoItem = todoList[index]  
+            baseUrl=`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos?id=eq.${selectedtodoItem.id}`;
+            const request = await  axios.delete(baseUrl,{
+            headers:{
+            'apikey':APIToken,
+            'Authorization':`Bearer ${APIToken}` 
+             }
+             }).then(resp=>{ 
           
-      }
-      
-      }).then(resp=>{ 
-          
-          console.log('Base Url for Delete'+baseUrl)         
-          setTodoList(resp.data)          
-          console.log('resp',resp.data);
-      })
-
-//=================
+                console.log('Base Url for Delete'+baseUrl)         
+                setTodoList(resp.data)          
+                console.log('resp',resp.data);
+            })
+        }catch(error){
+            console.log(error)        
+            notify('Something went Wrong Please Check your Internet connection')
+        };
           const  arrayCopy =[...todoList]
           arrayCopy.splice(index,1)
           setTodoList(arrayCopy) 
           notify('Sucessfully Deleted')
-          
-        
-    }
-
-      const onToDoStatusChange= async(index:number)=>{   //need to update isDone =true
-       
-
-        alert('inside onToDoStatusChange')
-        const selectedtodoItem = todoList[index]
-        console.log('Show selected Items',selectedtodoItem.id) 
-
-        const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos?id=eq.${selectedtodoItem.id}`;
-        const request= await axios.patch(apiUrl,{isDone:true},{
-            headers:{
-                apikey :APIToken,
-                Authorization: `Bearer ${APIToken}`
-              }
-            }).then(resp=>{ 
-          
-              console.log('Base Url for update'+baseUrl)         
-              setTodoList(resp.data)          
-              console.log('resp',resp.data);
-        
-    
-        });
-        const arrayCopy =[...todoList]
-        arrayCopy[index].isDone = !arrayCopy[index].isDone;      
-        setTodoList(arrayCopy);  
-
         }
 
+  const onToDoStatusChange= async(index:number)=>{   //need to update isDone =true
+       
+        try{
+            const selectedtodoItem = todoList[index]          
+            const isDoneStatus = !selectedtodoItem.isDone
+            const apiUrl =`https://elscmcoswajrkdazeklc.supabase.co/rest/v1/Todos?id=eq.${selectedtodoItem.id}`;
+            const request= await axios.patch(apiUrl,{isDone:isDoneStatus},{
+                headers:{
+                    apikey :APIToken,
+                    Authorization: `Bearer ${APIToken}`
+                  }
+                }).then(resp=>{   
+                  setTodoList(resp.data)
+            });
+        notify('Modified Sucessfully')
+        }catch(error){
+        console.log(error)        
+        notify('Something went Wrong Please Check your Internet connection')
+      };
+          const arrayCopy =[...todoList]
+          arrayCopy[index].isDone = !arrayCopy[index].isDone;      
+          setTodoList(arrayCopy);  
+
+  }
 
 
 
-      const onToDoTextChange =(index:number ,text:string)=>{
+
+  const onToDoTextChange =(index:number ,text:string)=>{
       const arrayCopy =[...todoList]
       arrayCopy[index].name =text;
       setTodoList(arrayCopy);  
-        }
+    }
 
    
 
-      return (
-        <>
+ return (
+    <>
       <div className="container flex flex-col item-center md:gap-5 mx-auto  md:m-20 m-10   bg-slate-400  ">
         <div className='flex flex-col m-10  '>
             <h1 className='text-4xl font-bold text-center m-8'>My ToDo List</h1>
@@ -174,23 +169,13 @@ function App() {
                      onTextChange={(text)=>onToDoTextChange(index,text)}
                       /> )}   
             </div>              
-      </div>
+        </div>
        
-    </div>
-    <ToastContainer 
-    position="top-center"
-    autoClose={5000}
-    hideProgressBar={false}
-    newestOnTop={false}
-    closeOnClick
-    rtl={false}
-    pauseOnFocusLoss
-    draggable
-    pauseOnHover
-    theme="colored"/>  
+      </div>
+      <ToastContainer />  
     </>
       
-      );
+    );
   }
 
 export default App;
