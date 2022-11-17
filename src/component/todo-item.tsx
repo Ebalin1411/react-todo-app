@@ -59,33 +59,37 @@ const TodoItem = (props:Props)=>{
         };
 
 
-    return(            //html elements
-        <div className="flex items-center space-x-10">
-            <input type="checkbox" checked={props.todo.isDone} onChange={props.onToDoStatusChange}/>
-            {/* <label className={props.todo.isDone ? 'line-through':''} id=""> */}
-                         {/* alternative method */}
-             {!isTextEditable && (
-                <>  <label
-                        onClick={() => setIsTextEditable(true)}
-                        className={clsx(props.todo.isDone && 'line-through', 'text-xl')}
-                        >
-                        {props.todo.name}
-                    </label>
-                    <div>
-                        <span onClick={props.onDelete}><AiFillDelete /></span>
-                    </div>
-                </>   
-                )}   
-                {/* Editing UI Without delete Button*/}
-            {isTextEditable && 
-            <input type='text' 
-            value={props.todo.name} 
-            onChange={handleTextChange} 
-            onKeyDown={onTextKeyPress}/>
-             }  
-                 
-                         
+    return(     
+        <div className=" ">
+             
+                <div className="flex items-center text-2xl space-x-10  ">
+                    <input type="checkbox" checked={props.todo.isDone} onChange={props.onToDoStatusChange}/>
+                    {/* <label className={props.todo.isDone ? 'line-through':''} id=""> */}
+                                {/* alternative method */}
+                    {!isTextEditable && (
+                        <>  <label
+                                onClick={() => setIsTextEditable(true)}
+                                className={clsx(props.todo.isDone && 'line-through', 'text-xl')}
+                                >
+                                {props.todo.name}
+                            </label>
+                            <div>
+                                <span onClick={props.onDelete}><AiFillDelete /></span>
+                            </div>
+                        </>   
+                        )}   
+                        {/* Editing UI Without delete Button*/}
+                    {isTextEditable && 
+                    <input type='text' 
+                    value={props.todo.name} 
+                    onChange={handleTextChange} 
+                    onKeyDown={onTextKeyPress}/>
+                    }  
+                        
+                                
+                </div>
         </div>
+      
     )
 
 } 

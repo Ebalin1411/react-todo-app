@@ -7,6 +7,9 @@ import { createTodo } from './api.service';
 import { url } from 'inspector';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
+
 const APIToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVsc2NtY29zd2FqcmtkYXpla2xjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEyMTMsImV4cCI6MTk4MTkxNzIxM30.c0E1wT_vPN0xFdYItcqfcbxZzQG-kLgpLt4R8rKZUiU'
 let baseUrl=''
 
@@ -147,7 +150,8 @@ function App() {
 
  return (
     <>
-      <div className="container flex flex-col item-center md:gap-5 mx-auto m-10   bg-slate-400  ">
+      <div className="container  bg-[url('./component/img/todo.png')] min-h-screen bg-cover bg-no-repeat bg-fixed bg-center  flex flex-col item-center md:gap-5 mx-auto  ">
+        {/* <img src={todoBgImg} alt='Todo-App-Background Image'></img> */}
         <div className='flex flex-col m-10  md:m-8 '>
             <h1 className='text-4xl font-bold text-center m-8'>My ToDo List</h1>
             <input 
@@ -155,11 +159,11 @@ function App() {
                 onChange={onTodoChange}
                 onKeyDown={onTodoKeyDown}
                 value={todoText}
-                className="border-2 m-2 " 
+                className="border-solid border-2 border-sky-500 m-2 " 
                 placeholder="Enter Task Name to Add">
             </input> 
             {/*list of to do */}
-            <div id="todoList" className='flex flex-col m-2 '>              
+            <div id="todoList" className='flex flex-col m-2 p-10'>              
               {todoList.map((todo,index)=>
                     <TodoItem 
                      key ={index}
