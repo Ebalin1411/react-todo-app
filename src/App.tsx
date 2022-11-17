@@ -150,10 +150,10 @@ function App() {
 
  return (
     <>
-      <div className="container  bg-[url('./component/img/todo.png')] min-h-screen bg-cover bg-no-repeat bg-fixed bg-center  flex flex-col item-center md:gap-5 mx-auto  ">
+      <div className="container  bg-[url('./component/img/todobg.jpg')] min-h-screen bg-cover bg-no-repeat bg-fixed bg-center  flex flex-col item-center md:gap-5 mx-auto  ">
         {/* <img src={todoBgImg} alt='Todo-App-Background Image'></img> */}
         <div className='flex flex-col m-10  md:m-8 '>
-            <h1 className='text-4xl font-bold text-center m-8'>My ToDo List</h1>
+            <h1 className='text-5xl font-bold text-center m-6'> ToDo List</h1>
             <input 
                 type="text"
                 onChange={onTodoChange}
