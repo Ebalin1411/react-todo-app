@@ -150,16 +150,16 @@ function App() {
 
  return (
     <>
-      <div className="container  bg-[url('./component/img/todobg.jpg')] min-h-screen bg-cover bg-no-repeat bg-fixed bg-center  flex flex-col item-center md:gap-5 mx-auto  ">
+      <div className="container  bg-[url('./component/img/todobg.jpg')] min-h-screen bg-cover bg-no-repeat bg-fixed bg-center  flex flex-col item-center md:gap-5 mx-auto ">
         {/* <img src={todoBgImg} alt='Todo-App-Background Image'></img> */}
-        <div className='flex flex-col m-10  md:m-8 '>
-            <h1 className='text-5xl font-bold text-center m-6'> ToDo List</h1>
+        <div className='flex flex-col m-10  md:m-10 '>
+            <h1 className='text-5xl font-bold text-center m-20'> ToDo List</h1>
             <input 
                 type="text"
                 onChange={onTodoChange}
                 onKeyDown={onTodoKeyDown}
                 value={todoText}
-                className="border-solid border-2 border-sky-500 m-2 " 
+                className="border-solid border-2 border-sky-500 m-5 " 
                 placeholder="Enter Task Name to Add">
             </input> 
             {/*list of to do */}

@@ -62,7 +62,7 @@ const TodoItem = (props:Props)=>{
     return(     
         <div className=" ">
              
-                <div className="flex items-center text-2xl space-x-10  ">
+                <div className="flex items-center text-2xl space-x-5  ">
                     <input type="checkbox" checked={props.todo.isDone} onChange={props.onToDoStatusChange}/>
                     {/* <label className={props.todo.isDone ? 'line-through':''} id=""> */}
                                 {/* alternative method */}
