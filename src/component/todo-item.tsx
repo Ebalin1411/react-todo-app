@@ -80,7 +80,7 @@ const TodoItem = (props:Props)=>{
                         )}   
                         {/* Editing UI Without delete Button*/}
                     {isTextEditable && 
-                    <input type='text' 
+                    <input className='border-solid border-2 border-sky-500 ' type='text' 
                     value={props.todo.name} 
                     onChange={handleTextChange} 
                     onKeyDown={onTextKeyPress}/>
